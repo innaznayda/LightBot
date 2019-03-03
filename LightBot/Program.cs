@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types.Enums;
 
 namespace LightBot {
     class Program {
@@ -47,9 +48,12 @@ namespace LightBot {
                       chatId: e.Message.Chat.Id,
                       text: joke
                     );
-                    await botClient.SendStickerAsync(
+                    await botClient.SendPhotoAsync(
                     chatId: e.Message.Chat.Id,
-                    sticker: "https://github.com/innaznayda/LightBot/blob/master/LightBot/alf.webp"
+                    photo: "https://github.com/innaznayda/LightBot/blob/master/LightBot/alf.png"
+                    // photo: "https://github.com/TelegramBots/book/raw/master/src/docs/photo-ara.jpg"
+ // caption: "<b>Ara bird</b>. <i>Source</i>: <a href=\"https://pixabay.com\">Pixabay</a>",
+  //parseMode: ParseMode.Html
                 );
 
                 }
