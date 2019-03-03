@@ -35,7 +35,7 @@ namespace LightBot {
                     );
                 }
 
-                if (e.Message.Text.Contains("joke",StringComparison.InvariantCultureIgnoreCase)) {
+                if (e.Message.Text.Contains("joke", StringComparison.InvariantCultureIgnoreCase)) {
                     var request = (HttpWebRequest)WebRequest.Create("https://geek-jokes.sameerkumar.website/api");
                     var responce = request.GetResponse();
                     string joke = "";
@@ -46,7 +46,12 @@ namespace LightBot {
                     await botClient.SendTextMessageAsync(
                       chatId: e.Message.Chat.Id,
                       text: joke
-                    );                   
+                    );
+                    await botClient.SendStickerAsync(
+                    chatId: e.Message.Chat.Id,
+                    sticker: "https://github.com/innaznayda/LightBot/blob/master/LightBot/alf.png"
+                );
+
                 }
             }
         }
