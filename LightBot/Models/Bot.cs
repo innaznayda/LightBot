@@ -20,8 +20,10 @@ namespace LightBot.Models {
 
             //TO DO : more commands to be initialised here
 
+            var hook = string.Format(AppSettings.Url, "api/message/update");
+
             client = new TelegramBotClient(AppSettings.Key);
-            await client.SetWebhookAsync("");
+            await client.SetWebhookAsync(hook);
             return client;
         }
     }
