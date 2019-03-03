@@ -49,7 +49,7 @@ namespace LightBot {
                     );
                     await botClient.SendStickerAsync(
                     chatId: e.Message.Chat.Id,
-                    sticker: "https://github.com/innaznayda/LightBot/blob/master/LightBot/alf.png"
+                    sticker: "https://github.com/innaznayda/LightBot/blob/master/LightBot/alf.webp"
                 );
 
                 }
