@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Net;
 using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Args;
@@ -20,15 +22,32 @@ namespace LightBot {
             if (e.Message.Text != null) {
                 Console.WriteLine($"Received a text message in chat {e.Message.Chat.Id}.");
 
-                await botClient.SendTextMessageAsync(
-                  chatId: e.Message.Chat.Id,
-                  text: "Hello, " + e.Message.From.FirstName + ". Nice to meet you. Here I am"
-                );
+                if (e.Message.Text.Contains("hello")) {
 
-                await botClient.SendStickerAsync(
-                    chatId: e.Message.Chat.Id,
-                    sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp"
-);
+                    await botClient.SendTextMessageAsync(
+                      chatId: e.Message.Chat.Id,
+                      text: "Hello, " + e.Message.From.FirstName + ". Nice to meet you. Here I am"
+                    );
+
+                    await botClient.SendStickerAsync(
+                        chatId: e.Message.Chat.Id,
+                        sticker: "https://github.com/TelegramBots/book/raw/master/src/docs/sticker-dali.webp"
+                    );
+                }
+
+                if (e.Message.Text.Contains("joke",StringComparison.InvariantCultureIgnoreCase)) {
+                    var request = (HttpWebRequest)WebRequest.Create("https://geek-jokes.sameerkumar.website/api");
+                    var responce = request.GetResponse();
+                    string joke = "";
+                    using (Stream stream = responce.GetResponseStream())
+                    using (StreamReader reader = new StreamReader(stream)) {
+                        joke = reader.ReadToEnd();
+                    }
+                    await botClient.SendTextMessageAsync(
+                      chatId: e.Message.Chat.Id,
+                      text: joke
+                    );                   
+                }
             }
         }
     }
